@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Art Gallery</title>
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
+  <!-- Materialize Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<body class="container">
+  <!-- Admin Add Art Form -->
+  <h2 class="header">Welcome Admin!</h2>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Material Design Lite Table</span>
+      </div>
+    </header>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Title</th>
+              <th class="mdl-data-table__cell--non-numeric">Author</th>
+              <th>Year</th>
+              <th class="mdl-data-table__cell--non-numeric">Medium</th>
+              <th class="mdl-data-table__cell--non-numeric">Description</th>
+              <th class="mdl-data-table__cell--non-numeric">Image URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Book 1</td>
+              <td class="mdl-data-table__cell--non-numeric">Author 1</td>
+              <td>2022</td>
+              <td class="mdl-data-table__cell--non-numeric">Paperback</td>
+              <td class="mdl-data-table__cell--non-numeric">Description 1</td>
+              <td class="mdl-data-table__cell--non-numeric">https://example.com/image1.jpg</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">Book 2</td>
+              <td class="mdl-data-table__cell--non-numeric">Author 2</td>
+              <td>2021</td>
+              <td class="mdl-data-table__cell--non-numeric">Hardcover</td>
+              <td class="mdl-data-table__cell--non-numeric">Description 2</td>
+              <td class="mdl-data-table__cell--non-numeric">https://example.com/image2.jpg</td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+  <h4 class="header">Add the new art here..</h4>
+  <form id="addArtForm" class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" id="title" name="title" class="validate" required>
+        <label for="title">Title:</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" id="author" name="author" class="validate" required>
+        <label for="author">Author:</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" id="year" name="year" class="validate" required>
+        <label for="year">Year:</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" id="medium" name="medium" class="validate" required>
+        <label for="medium">Medium:</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="description" name="description" class="materialize-textarea" required></textarea>
+        <label for="description">Description:</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="file" id="image" name="image" accept="image/*" required ><br>
+      </div>
+      <div class="input-field col s6">
+        <button type="button" class="btn waves-effect waves-light" onclick="addArt()">Add Art</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Materialize JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./js/admin.js"></script>
+</body>
+
+</html>
+
+</html>

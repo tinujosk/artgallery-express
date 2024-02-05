@@ -1,6 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 const Art = require('../models/art');
+
+// Set up Multer for file uploads
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (req, file, callback) {
+    callback(
+      null,
+      file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // Search Art
 router.get('/search', async (req, res) => {
@@ -13,13 +28,23 @@ router.get('/search', async (req, res) => {
   }
 });
 
+// Get all Art entries
+router.get('/all', async (req, res) => {
+  try {
+    const allArt = await Art.find();
+    res.json(allArt);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Add Art (Admin Only)
-router.post('/add', async (req, res) => {
+router.post('/add', upload.single('image'), async (req, res) => {
   const art = new Art({
     title: req.body.title,
     author: req.body.author,
     description: req.body.description,
-    imageUrl: req.body.imageUrl,
+    imageUrl: `/uploads/${req.file.filename}`,
     year: req.body.year,
     medium: req.body.medium,
   });

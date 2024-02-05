@@ -19,27 +19,16 @@ mongoose.connect(
 
 // Middleware to enable CORS
 app.use((req, res, next) => {
-  // Allow requests from any origin (you can specify a specific origin if needed)
   res.setHeader('Access-Control-Allow-Origin', '*');
-
-  // Allow these HTTP methods
   res.setHeader(
     'Access-Control-Allow-Methods',
     'GET, POST, OPTIONS, PUT, PATCH, DELETE'
   );
-
-  // Allow these headers to be sent with the request
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  // Allow credentials (if needed)
   res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Handle preflight requests (OPTIONS method)
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
   }
-
-  // Continue to the next middleware
   next();
 });
 
@@ -47,13 +36,15 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Serve static files from the "public" directory
+// Serve static files from the "public" and "/uploads" directory
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static('uploads'));
 
 // Routes
 const artRoutes = require('./routes/artRoutes');
 app.use('/art', artRoutes);
 
+// Default route to server static files.
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

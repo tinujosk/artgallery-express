@@ -2,133 +2,197 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Art Gallery</title>
-
-    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700&display=swap"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
-
-    <!-- Materialize Icons -->
     <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
-  <!-- ... rest of the code remains unchanged ... -->
-  <body class="container">
-    <h1 class="header">Art Gallery</h1>
-  
-    <!-- Search Art Form -->
-    <div class="row">
-      <form id="searchForm" class="col s12">
-        <div class="input-field col s10">
-          <input type="text" id="keyword" name="keyword" class="validate" required>
-          <label for="keyword">Search Art:</label>
-        </div>
-        <div class="input-field col s2">
-          <button type="button" class="btn waves-effect waves-light" onclick="searchArt()">Search</button>
-        </div>
-      </form>
-    </div>
-  
-    <!-- Display Search Results -->
-    <div id="searchResults" class="row"></div>
-  
-    <!-- Admin Add Art Form -->
-    <h2 class="header">Add Art (Admin Only)</h2>
-    <form id="addArtForm" class="col s12">
+  <body onload="loadAll()">
+    <header>
+      <a href="./index.html"
+        ><img src="./images/logo.png" alt="The company logo"
+      /></a>
+      <nav>
+        <ul>
+          <li>
+            <i class="fa-brands fa-envira"></i><a href="./index.html">Home</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-earth-americas"></i>
+            <a href="./about.html">About Us</a>
+          </li>
+        </ul>
+      </nav>
+      <div id="user-profile">
+        <a href="./login.html"
+          >Admin Login <i class="fa-solid fa-right-to-bracket"></i
+        ></a>
+      </div>
+    </header>
+    <main>
+      <!-- Search Art Form -->
       <div class="row">
-        <div class="input-field col s6">
-          <input type="text" id="title" name="title" class="validate" required>
-          <label for="title">Title:</label>
-        </div>
-        <div class="input-field col s6">
-          <input type="text" id="author" name="author" class="validate" required>
-          <label for="author">Author:</label>
-        </div>
-        <div class="input-field col s6">
-            <input type="text" id="year" name="year" class="validate" required>
-            <label for="year">Year:</label>
+        <form id="searchForm" class="col s12">
+          <div class="input-field col s10">
+            <input
+              type="text"
+              id="keyword"
+              name="keyword"
+              class="validate"
+              required
+            />
+            <label for="keyword">Search Art:</label>
           </div>
-          <div class="input-field col s6">
-            <input type="text" id="medium" name="medium" class="validate" required>
-            <label for="medium">Medium:</label>
+          <div class="input-field col s2">
+            <button
+              type="button"
+              class="btn waves-effect waves-light"
+              onclick="searchArt()"
+            >
+              Search
+            </button>
           </div>
+        </form>
       </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="description" name="description" class="materialize-textarea" required></textarea>
-          <label for="description">Description:</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input type="text" id="imageUrl" name="imageUrl" class="validate" required>
-          <label for="imageUrl">Image URL:</label>
-        </div>
-        <div class="input-field col s6">
-          <button type="button" class="btn waves-effect waves-light" onclick="addArt()">Add Art</button>
-        </div>
-      </div>
-    </form>
-  
-    <!-- Materialize JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  
-    <script>
-      // Rest of the JavaScript code remains unchanged
-          // Function to search for art
-    async function searchArt() {
-      const keyword = document.getElementById('keyword').value;
-      const response = await fetch(`/art/search?keyword=${keyword}`);
-      const data = await response.json();
-
-      // Display search results
-      const searchResults = document.getElementById('searchResults');
-      searchResults.innerHTML = '<h3>Search Results</h3>';
-      
-      if (data.length === 0) {
-        searchResults.innerHTML += '<p>No results found.</p>';
-      } else {
-        data.forEach(art => {
-          searchResults.innerHTML += `
-            <div>
-              <p><strong>Title:</strong> ${art.title}</p>
-              <p><strong>Author:</strong> ${art.author}</p>
-              <p><strong>Description:</strong> ${art.description}</p>
-              <img src="${art.imageUrl}" alt="${art.title}" style="max-width: 200px;">
+      <div class="gallery">
+        <div id="grid">
+          <!-- <div class="image-container">
+            <img src="./images/img1-min.jpg" alt="Expressionism" />
+            <div class="overlay">
+              <h2>Expressionism</h2>
             </div>
-          `;
-        });
+            <p>
+              Expressionism is an art movement of the early 20th century.
+              Emphasizing emotions over reality, it distorts form to evoke
+              feelings.<span>Click on the card to know more</span>
+            </p>
+          </div> -->
+        </div>
+        <div class="side-panel">
+          <div class="close-icon">&times;</div>
+          <h2 id="image-heading">Click an image to see heading.</h2>
+          <p id="image-details">Click an image to see details.</p>
+          <img src="" alt="Artist details" />
+          <p id="artist"></p>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div id="footer-content">
+        <div>
+          <h4>Quick links</h4>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./about.html">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Get connected with us!</h4>
+          <ul>
+            <li>
+              <i class="fa-brands fa-facebook"></i
+              ><a href="https://www.facebook.com/" target="_blank">Facebook</a>
+            </li>
+            <li>
+              <i class="fa-brands fa-youtube"></i
+              ><a href="https://www.youtube.com/" target="_blank">YouTube</a>
+            </li>
+            <li>
+              <i class="fa-brands fa-twitter"></i
+              ><a href="https://www.twitter.com/" target="_blank">Twitter</a>
+            </li>
+            <li>
+              <i class="fa-brands fa-instagram"></i
+              ><a href="https://www.instagram.com/" target="_blank"
+                >Instagram</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4>Reach the developers</h4>
+          <ul>
+            <li><a href="">Tinu</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="line"></div>
+      <div id="footer-copyright">
+        &copy; 2023 Copyright Art Gallery App. All rights reserved.
+      </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./js/gallery.js"></script>
+    <script>
+      // Function to search for art
+      async function searchArt() {
+        const keyword = document.getElementById('keyword').value;
+        const response = await fetch(`/art/search?keyword=${keyword}`);
+        const data = await response.json();
+
+        // Display search results
+        const imageGrid = document.getElementById('grid');
+        // imageGrid.innerHTML = '<h3>Search Results</h3>';
+
+        if (data.length === 0) {
+          imageGrid.innerHTML += '<p>No results found.</p>';
+        } else {
+          data.forEach(art => {
+            console.log('test', art);
+            imageGrid.innerHTML += `<div class="image-container">
+            <img src="${art.imageUrl}" />
+            <div class="overlay">
+              <h2>${art.title}</h2>
+            </div>
+            <p>
+              ${art.description}
+            </p>
+          </div>`;
+          });
+        }
       }
-    }
 
-    // Function to add art (Admin Only)
-    async function addArt() {
-      const title = document.getElementById('title').value;
-      const author = document.getElementById('author').value;
-      const description = document.getElementById('description').value;
-      const imageUrl = document.getElementById('imageUrl').value;
-      const year = document.getElementById('year').value;
-      const medium = document.getElementById('medium').value;
+      // Function to search for art
+      async function loadAll() {
+        const keyword = document.getElementById('keyword').value;
+        const response = await fetch(`/art/all`);
+        const data = await response.json();
 
-      const response = await fetch('/art/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title, author, description, imageUrl, year, medium }),
-      });
+        // Display search results
+        const imageGrid = document.getElementById('grid');
+        // imageGrid.innerHTML = '<h3>Search Results</h3>';
 
-      const data = await response.json();
-      alert('Art added successfully!');
-    }
+        if (data.length === 0) {
+          imageGrid.innerHTML += '<p>No results found.</p>';
+        } else {
+          data.forEach(art => {
+            console.log('test', art);
+            imageGrid.innerHTML += `<div class="image-container">
+            <img src="${art.imageUrl}" />
+            <div class="overlay">
+              <h2>${art.title}</h2>
+            </div>
+            <p>
+              ${art.description}
+            </p>
+          </div>`;
+          });
+        }
+      }
     </script>
   </body>
-  </html>
-  
 </html>

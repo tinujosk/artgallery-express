@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url('../images/bgimg2.jpg');
+  background-size: cover;
+}
+
+#tabs {
+  width: 60%;
+  margin: 50px auto;
+}
+
+#tabs p {
+  line-height: 1.6;
+}

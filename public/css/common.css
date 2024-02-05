@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 300;
+}
+
+header,
+footer {
+  color: #faebd7;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  height: 15vh;
+  justify-content: space-around;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  font-size: 20px;
+}
+
+header img {
+  width: 250px;
+  height: 60px;
+  padding: 10px;
+}
+
+main {
+  min-height: 55vh;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ul li {
+  cursor: pointer;
+}
+
+#user-profile ul {
+  display: flex;
+}
+
+header nav ul {
+  display: flex;
+}
+
+footer ul li {
+  margin-bottom: 10px;
+}
+
+footer ul li:hover {
+  text-decoration: underline;
+}
+
+header ul li {
+  margin-right: 20px;
+  padding: 10px;
+}
+
+header ul li i {
+  margin-right: 10px;
+}
+
+header nav ul li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #3905a1;
+  padding-bottom: 30px;
+}
+
+a {
+  color: #faebd7;
+  text-decoration: none;
+}
+
+#footer-content {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+#footer-copyright {
+  display: flex;
+  justify-content: center;
+}
+
+.fa-brands {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.fa-facebook {
+  color: #3b5998;
+}
+
+.fa-youtube {
+  color: #cd201f;
+}
+
+.fa-twitter {
+  color: #1da1f2;
+}
+
+.fa-instagram {
+  color: #ef426f;
+}
+
+.line {
+  margin: 20px auto;
+  width: 40%;
+  height: 0.5px;
+  background-color: #faebd7;
+}
