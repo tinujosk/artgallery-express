@@ -7,10 +7,12 @@ const collectionName = 'art_details';
 const artSchema = new mongoose.Schema({
   title: { type: String, required: true, text: true },
   author: { type: String, required: true },
-  description: { type: String, required: true },
-  imageUrl: { type: String, required: true },
   year: { type: String, required: true },
   medium: { type: String, required: true },
+  price: { type: String, required: true },
+  phone: { type: String, required: true },
+  description: { type: String, required: true },
+  imageURL: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Art', artSchema, collectionName);

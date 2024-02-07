@@ -1,7 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const artRoutes = require('./routes/artRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,6 +16,10 @@ mongoose.connect(
     useUnifiedTopology: true,
   }
 );
+
+// Middleware to parse JSON and URL-encoded bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Middleware to enable CORS
 app.use((req, res, next) => {
@@ -32,16 +36,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 // Serve static files from the "public" and "/uploads" directory
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 
 // Routes
-const artRoutes = require('./routes/artRoutes');
 app.use('/art', artRoutes);
 
 // Default route to server static files.

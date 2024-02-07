@@ -43,10 +43,12 @@ router.post('/add', upload.single('image'), async (req, res) => {
   const art = new Art({
     title: req.body.title,
     author: req.body.author,
-    description: req.body.description,
-    imageUrl: `/uploads/${req.file.filename}`,
     year: req.body.year,
     medium: req.body.medium,
+    price: req.body.price,
+    phone: req.body.phone,
+    description: req.body.description,
+    imageURL: `/uploads/${req.file?.filename}`,
   });
 
   try {

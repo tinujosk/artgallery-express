@@ -21,6 +21,7 @@
       referrerpolicy="no-referrer"
     />
   </head>
+
   <body onload="loadAll()">
     <header>
       <a href="./index.html"
@@ -44,29 +45,11 @@
       </div>
     </header>
     <main>
-      <!-- Search Art Form -->
-      <div class="row">
-        <form id="searchForm" class="col s12">
-          <div class="input-field col s10">
-            <input
-              type="text"
-              id="keyword"
-              name="keyword"
-              class="validate"
-              required
-            />
-            <label for="keyword">Search Art:</label>
-          </div>
-          <div class="input-field col s2">
-            <button
-              type="button"
-              class="btn waves-effect waves-light"
-              onclick="searchArt()"
-            >
-              Search
-            </button>
-          </div>
-        </form>
+      <div class="search-box-container">
+        <div class="search-box">
+          <input type="text" class="search-input" placeholder="Search" />
+          <button class="search-button" onclick="searchArt()">Search</button>
+        </div>
       </div>
       <div class="gallery">
         <div id="grid">
