@@ -20,7 +20,7 @@ const validateLogin = event => {
   // If password is authenticated, stores the user details in the localStorage.
   if (user && user.password === password) {
     localStorage.setItem('loggedInUser', email);
-    window.location.href = 'admin.html';
+    window.location.assign('admin.html');
   } else {
     errorMessageElement.text('Invalid username or password. Please try again.');
   }

@@ -20,6 +20,8 @@ phone.addEventListener('input', checkFields);
 description.addEventListener('input', checkFields);
 imageFile.addEventListener('change', checkFields);
 
+// checkAuthenticated();
+
 // Function to check if all fields are filled
 function checkFields() {
   if (
@@ -42,12 +44,11 @@ async function addArt() {
   const form = document.getElementById('addArtForm');
   const formData = new FormData(form);
   try {
-    const response = await fetch('/art/add', {
+    await fetch('/art/add', {
       method: 'POST',
       body: formData,
     });
-    const data = await response.json();
-    alert('Art added successfully!', data);
+    alert('Art added successfully! Please refresh the page');
     form.reset();
     loadAll();
   } catch (error) {
@@ -55,29 +56,68 @@ async function addArt() {
   }
 }
 
+async function deleteArt(artId) {
+  try {
+    await fetch(`/art/delete/${artId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+      },
+    });
+    alert('Art deleted successfully! Please refresh the page');
+  } catch (error) {
+    alert('Error deleting art. Please try again.');
+  }
+  loadAll();
+}
+
 async function loadAll() {
   const response = await fetch(`/art/all`);
   const data = await response.json();
   const table = document.getElementById('artTable');
   const tableBody = table.getElementsByTagName('tbody')[0];
+  if (tableBody) {
+    while (tableBody.firstChild) {
+      tableBody.removeChild(tableBody.firstChild);
+    }
+    if (data.length === 0) {
+      table.innerHTML =
+        'No data available as of now. Please add data using the below form';
+    } else {
+      data.forEach(art => {
+        const newRow = tableBody.insertRow(0);
+        newRow.insertCell(0).innerHTML = art.title;
+        newRow.insertCell(1).innerHTML = art.author;
+        newRow.insertCell(2).innerHTML = art.year;
+        newRow.insertCell(3).innerHTML = art.medium;
+        newRow.insertCell(4).innerHTML = art.price;
+        newRow.insertCell(5).innerHTML = art.phone;
+        newRow.insertCell(6).innerHTML = art.description;
+        newRow.insertCell(7).innerHTML = art.imageURL;
 
-  while (tableBody.firstChild) {
-    tableBody.removeChild(tableBody.firstChild);
-  }
-  if (data.length === 0) {
-    table.innerHTML =
-      'No data available as of now. Please add data using the below form';
-  } else {
-    data.forEach(art => {
-      var newRow = tableBody.insertRow(0);
-      newRow.insertCell(0).innerHTML = art.title;
-      newRow.insertCell(1).innerHTML = art.author;
-      newRow.insertCell(2).innerHTML = art.year;
-      newRow.insertCell(3).innerHTML = art.medium;
-      newRow.insertCell(4).innerHTML = art.price;
-      newRow.insertCell(5).innerHTML = art.phone;
-      newRow.insertCell(6).innerHTML = art.description;
-      newRow.insertCell(7).innerHTML = art.imageURL;
-    });
+        const deleteButton = document.createElement('button');
+        deleteButton.innerHTML =
+          '<i style="cursor: pointer;" class="fas fa-trash-alt"></i>';
+        deleteButton.onclick = function () {
+          deleteArt(art._id);
+        };
+        newRow.insertCell(8).appendChild(deleteButton);
+      });
+    }
   }
 }
+
+async function checkAuthenticated() {
+  const response = await fetch(`/art/protected`);
+  // const data = await response.json();
+
+  // if (response.status === 401) {
+  //   window.location.href = 'login.html';
+  // }
+  // console.log('Authentication', data);
+}
+
+$(document).ready(function () {
+  loadAll();
+});

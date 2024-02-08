@@ -21,8 +21,7 @@
       referrerpolicy="no-referrer"
     />
   </head>
-
-  <body onload="loadAll()">
+  <body>
     <header>
       <a href="./index.html"
         ><img src="./images/logo.png" alt="The company logo"
@@ -47,29 +46,41 @@
     <main>
       <div class="search-box-container">
         <div class="search-box">
-          <input type="text" class="search-input" placeholder="Search" />
+          <input
+            id="keyword"
+            type="text"
+            class="search-input"
+            placeholder="Search"
+          />
           <button class="search-button" onclick="searchArt()">Search</button>
         </div>
       </div>
-      <div class="gallery">
-        <div id="grid">
-          <!-- <div class="image-container">
-            <img src="./images/img1-min.jpg" alt="Expressionism" />
-            <div class="overlay">
-              <h2>Expressionism</h2>
-            </div>
-            <p>
-              Expressionism is an art movement of the early 20th century.
-              Emphasizing emotions over reality, it distorts form to evoke
-              feelings.<span>Click on the card to know more</span>
-            </p>
-          </div> -->
+      <div
+        id="loader"
+        class="preloader-wrapper big active"
+        style="margin: auto; margin-top: 50px; display: none"
+      >
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
         </div>
+      </div>
+      <div class="gallery">
+        <div id="grid"></div>
         <div class="side-panel">
           <div class="close-icon">&times;</div>
           <h2 id="image-heading">Click an image to see heading.</h2>
           <p id="image-details">Click an image to see details.</p>
-          <img src="" alt="Artist details" />
+          <div class="image-scroll">
+            <img src="" alt="Artist details" />
+          </div>
           <p id="artist"></p>
         </div>
       </div>
@@ -119,63 +130,6 @@
       </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="./js/gallery.js"></script>
-    <script>
-      // Function to search for art
-      async function searchArt() {
-        const keyword = document.getElementById('keyword').value;
-        const response = await fetch(`/art/search?keyword=${keyword}`);
-        const data = await response.json();
-
-        // Display search results
-        const imageGrid = document.getElementById('grid');
-        // imageGrid.innerHTML = '<h3>Search Results</h3>';
-
-        if (data.length === 0) {
-          imageGrid.innerHTML += '<p>No results found.</p>';
-        } else {
-          data.forEach(art => {
-            console.log('test', art);
-            imageGrid.innerHTML += `<div class="image-container">
-            <img src="${art.imageUrl}" />
-            <div class="overlay">
-              <h2>${art.title}</h2>
-            </div>
-            <p>
-              ${art.description}
-            </p>
-          </div>`;
-          });
-        }
-      }
-
-      // Function to search for art
-      async function loadAll() {
-        const keyword = document.getElementById('keyword').value;
-        const response = await fetch(`/art/all`);
-        const data = await response.json();
-
-        // Display search results
-        const imageGrid = document.getElementById('grid');
-        // imageGrid.innerHTML = '<h3>Search Results</h3>';
-
-        if (data.length === 0) {
-          imageGrid.innerHTML += '<p>No results found.</p>';
-        } else {
-          data.forEach(art => {
-            console.log('test', art);
-            imageGrid.innerHTML += `<div class="image-container">
-            <img src="${art.imageUrl}" />
-            <div class="overlay">
-              <h2>${art.title}</h2>
-            </div>
-            <p>
-              ${art.description}
-            </p>
-          </div>`;
-          });
-        }
-      }
-    </script>
+    <script src="./js/index.js"></script>
   </body>
 </html>
