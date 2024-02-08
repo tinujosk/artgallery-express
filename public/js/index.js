@@ -1,14 +1,15 @@
 let imagedata = [];
 
 const displayImages = data => {
-  console.log('image', imagedata);
-  const imageGrid = document.getElementById('grid');
-  imageGrid.innerHTML = '';
+  $('.grid').html('');
   if (data.length === 0) {
-    imageGrid.innerHTML += '<p>No results found.</p>';
+    $('.not-found').css('display', 'block');
+    $('.gallery').css('display', 'none');
   } else {
+    $('.not-found').css('display', 'none');
+    $('.gallery').css('display', 'block');
     data.forEach(art => {
-      imageGrid.innerHTML += `<div class="image-container">
+      $('.grid').append(`<div class="image-container">
     <img src="${art.imageURL}" alt="${art.title}"/>
     <div class="overlay">
       <h2>${art.title}</h2>
@@ -16,7 +17,7 @@ const displayImages = data => {
     <p>
       ${art.description}
     </p>
-  </div>`;
+  </div>`);
     });
   }
 };
@@ -38,12 +39,13 @@ async function searchArt() {
   imagedata = await response.json();
   loader.style.display = 'none';
   $('.close-icon').click();
+  $('.caption').text('Search Results...');
   displayImages(imagedata);
 }
 
 $(document).ready(function () {
   loadAll();
-  $('#grid').on('click', '.image-container', function () {
+  $('.grid').on('click', '.image-container', function () {
     var heading = $(this).find('img').attr('alt');
     var imageLink = $(this).find('img').attr('src');
     var description = $(this).find('p').text();

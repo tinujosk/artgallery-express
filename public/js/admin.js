@@ -108,15 +108,16 @@ async function loadAll() {
   }
 }
 
-async function checkAuthenticated() {
-  const response = await fetch(`/art/protected`);
-  // const data = await response.json();
+// Authentication system is in progress
+// async function checkAuthenticated() {
+//   const response = await fetch(`/art/protected`);
+//   const data = await response.json();
 
-  // if (response.status === 401) {
-  //   window.location.href = 'login.html';
-  // }
-  // console.log('Authentication', data);
-}
+//   if (response.status === 401) {
+//     window.location.href = 'login.html';
+//   }
+//   console.log('Authentication', data);
+// }
 
 $(document).ready(function () {
   loadAll();

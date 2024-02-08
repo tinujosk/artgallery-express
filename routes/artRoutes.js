@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const Art = require('../models/art');
 
 // Set up Multer for file uploads
@@ -19,6 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Authentication system is in progress
 // router.post('/login', (req, res) => {
 //   const { username, password } = req.body;
 
@@ -58,7 +60,10 @@ const upload = multer({ storage: storage });
 router.get('/search', async (req, res) => {
   try {
     const keyword = req.query.keyword;
-    const results = await Art.find({ $text: { $search: keyword } });
+    // const results = await Art.find({ $text: { $search: keyword } }); // Use this for single record with exact name
+    const results = await Art.find({
+      title: { $regex: keyword, $options: 'i' },
+    });
     res.json(results);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -68,8 +73,9 @@ router.get('/search', async (req, res) => {
 // Get all Art entries
 router.get('/all', async (req, res) => {
   try {
-    const allArt = await Art.find();
-    res.json(allArt);
+    // const allArt = await Art.find(); // This can be used to retrieve all art.
+    const latestArt = await Art.find().sort({ createdAt: -1 }).limit(4);
+    res.json(latestArt);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -102,6 +108,10 @@ router.delete('/delete/:id', async (req, res) => {
     const deletedArt = await Art.findByIdAndDelete(id);
     if (!deletedArt) {
       return res.status(404).json({ message: 'Art not found' });
+    }
+    if (deletedArt.imageURL) {
+      const imagePath = path.join(path.dirname(__dirname), deletedArt.imageURL);
+      fs.unlinkSync(imagePath);
     }
     res.json({ message: 'Art deleted successfully', deletedArt });
   } catch (err) {
