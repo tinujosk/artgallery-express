@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,18 +9,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <!-- Materialize Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./css/admin.css">
 </head>
+
 <body class="container">
   <!-- Admin Add Art Form -->
-  <h2 class="header">Welcome Admin!</h2>
+  <div class="flex">
+    <h2 class="header">Welcome Admin!</h2>
+    <span class="logout">Logout</span>
+  </div>
   <div id="table-section" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
@@ -47,55 +48,57 @@
     </main>
   </div>
   <div id="form-section">
-  <h4 class="header">Add the new art here..</h4>
-  <form id="addArtForm" class="col s12">
-    <div class="row">
-      <div class="input-field col s6">
-        <input type="text" id="title" name="title" class="validate" required>
-        <label for="title">Title:</label>
+    <h4 class="header">Add the new art here..</h4>
+    <form id="addArtForm" class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input type="text" id="title" name="title" class="validate" required>
+          <label for="title">Title:</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="text" id="author" name="author" class="validate" required>
+          <label for="author">Author:</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="text" id="year" name="year" class="validate" required>
+          <label for="year">Year:</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="text" id="medium" name="medium" class="validate" required>
+          <label for="medium">Medium:</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="number" id="price" name="price" class="validate" required>
+          <label for="price">Price:</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="text" id="phone" name="phone" class="validate" required>
+          <label for="phone">Phone:</label>
+        </div>
       </div>
-      <div class="input-field col s6">
-        <input type="text" id="author" name="author" class="validate" required>
-        <label for="author">Author:</label>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="description" name="description" class="materialize-textarea" required></textarea>
+          <label for="description">Description:</label>
+        </div>
       </div>
-      <div class="input-field col s6">
-        <input type="text" id="year" name="year" class="validate" required>
-        <label for="year">Year:</label>
+      <div class="row">
+        <div class="input-field col s6">
+          Image: <input type="file" id="image" name="image" accept="image/*" required><br>
+        </div>
+        <div class="input-field col s6">
+          <button type="button" name="upload" id="upload" class="btn waves-effect waves-light" onclick="addArt()">Add
+            Art</button>
+        </div>
       </div>
-      <div class="input-field col s6">
-        <input type="text" id="medium" name="medium" class="validate" required>
-        <label for="medium">Medium:</label>
-      </div>
-      <div class="input-field col s6">
-        <input type="number" id="price" name="price" class="validate" required>
-        <label for="price">Price:</label>
-      </div>
-      <div class="input-field col s6">
-        <input type="text" id="phone" name="phone" class="validate" required>
-        <label for="phone">Phone:</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea id="description" name="description" class="materialize-textarea" required></textarea>
-        <label for="description">Description:</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        Image: <input type="file" id="image" name="image" accept="image/*"  required><br>
-      </div>
-      <div class="input-field col s6">
-        <button type="button" name="upload" id="upload" class="btn waves-effect waves-light" onclick="addArt()">Add
-          Art</button>
-      </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
   <!-- Materialize JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="./js/admin.js"></script>
 </body>
+
 </html>
+
 </html>

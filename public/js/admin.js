@@ -20,8 +20,6 @@ phone.addEventListener('input', checkFields);
 description.addEventListener('input', checkFields);
 imageFile.addEventListener('change', checkFields);
 
-// checkAuthenticated();
-
 // Function to check if all fields are filled
 function checkFields() {
   if (
@@ -57,23 +55,26 @@ async function addArt() {
 }
 
 async function deleteArt(artId) {
-  try {
-    await fetch(`/art/delete/${artId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        // Add any other headers as needed
-      },
-    });
-    alert('Art deleted successfully! Please refresh the page');
-  } catch (error) {
-    alert('Error deleting art. Please try again.');
+  var result = window.confirm('Are you sure you want to delete this item?');
+  if (result) {
+    try {
+      await fetch(`/art/delete/${artId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as needed
+        },
+      });
+      alert('Art deleted successfully! Please refresh the page');
+    } catch (error) {
+      alert('Error deleting art. Please try again.');
+    }
+    loadAll();
   }
-  loadAll();
 }
 
 async function loadAll() {
-  const response = await fetch(`/art/all`);
+  const response = await fetch(`/art/latest`);
   const data = await response.json();
   const table = document.getElementById('artTable');
   const tableBody = table.getElementsByTagName('tbody')[0];
@@ -108,7 +109,7 @@ async function loadAll() {
   }
 }
 
-// Authentication system is in progress
+// JWT Authentication system is in progress
 // async function checkAuthenticated() {
 //   const response = await fetch(`/art/protected`);
 //   const data = await response.json();
@@ -120,5 +121,14 @@ async function loadAll() {
 // }
 
 $(document).ready(function () {
-  loadAll();
+  if (localStorage.getItem('loggedInUser') !== 'admin') {
+    window.location.href = 'login.html';
+  } else {
+    loadAll();
+  }
+});
+
+$('.logout').click(() => {
+  localStorage.removeItem('loggedInUser');
+  window.location.href = 'login.html';
 });

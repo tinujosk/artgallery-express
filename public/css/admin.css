@@ -9,3 +9,15 @@
 #form-section {
   margin-bottom: 300px;
 }
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout {
+  font-style: bold;
+  font-size: large;
+  cursor: pointer;
+}

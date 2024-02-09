@@ -71,7 +71,7 @@ router.get('/search', async (req, res) => {
 });
 
 // Get all Art entries
-router.get('/all', async (req, res) => {
+router.get('/latest', async (req, res) => {
   try {
     // const allArt = await Art.find(); // This can be used to retrieve all art.
     const latestArt = await Art.find().sort({ createdAt: -1 }).limit(4);

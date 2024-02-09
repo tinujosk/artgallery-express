@@ -1,11 +1,22 @@
 let imagedata = [];
 
-const displayImages = data => {
+const displayImages = (data, callingFn) => {
   $('.grid').html('');
   if (data.length === 0) {
+    $('.caption').text('');
+    if (callingFn === 'loadlatest') {
+      $('.not-found').find('p').text('Seems like nothing is here');
+    } else {
+      $('.not-found').find('p').text('Art Not Found');
+    }
     $('.not-found').css('display', 'block');
     $('.gallery').css('display', 'none');
   } else {
+    if (callingFn === 'loadlatest') {
+      $('.caption').text('Here are the few latest arts...');
+    } else {
+      $('.caption').text('Search results...');
+    }
     $('.not-found').css('display', 'none');
     $('.gallery').css('display', 'block');
     data.forEach(art => {
@@ -23,11 +34,11 @@ const displayImages = data => {
 };
 
 // Function to search for art
-async function loadAll() {
-  const response = await fetch(`/art/all`);
+async function loadLatest() {
+  const response = await fetch(`/art/latest`);
   imagedata = await response.json();
 
-  displayImages(imagedata);
+  displayImages(imagedata, 'loadlatest');
 }
 
 // Function to search for art
@@ -40,11 +51,11 @@ async function searchArt() {
   loader.style.display = 'none';
   $('.close-icon').click();
   $('.caption').text('Search Results...');
-  displayImages(imagedata);
+  displayImages(imagedata, 'searchart');
 }
 
 $(document).ready(function () {
-  loadAll();
+  loadLatest();
   $('.grid').on('click', '.image-container', function () {
     var heading = $(this).find('img').attr('alt');
     var imageLink = $(this).find('img').attr('src');
@@ -60,7 +71,7 @@ $(document).ready(function () {
         <li><b>Artist:</b> ${artDetail?.author}</li>
         <li><b>Medium:</b> ${artDetail?.medium}</li>
         <li><b>Year:</b> ${artDetail?.year}</li>
-        <li><b>Price:</b> ${artDetail?.price}</li>
+        <li><b>Price$:</b> ${artDetail?.price}</li>
         <li><b>Phone:</b> ${artDetail?.phone}</li>
       </ul>
     `;
