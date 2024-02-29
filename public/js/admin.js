@@ -110,7 +110,7 @@ async function loadAll() {
 }
 
 $(document).ready(function () {
-  if (localStorage.getItem('loggedInUser') !== 'admin') {
+  if (!localStorage.getItem('loggedInUser')) {
     window.location.href = 'login.html';
   } else {
     loadAll();
