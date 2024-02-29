@@ -125,6 +125,28 @@ main {
   padding: 0 10px;
 }
 
+.artist-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.artist-flex button {
+  height: 50px;
+  width: 150px;
+  background-color: #4ca051;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.artist-flex button:hover {
+  background-color: #356f39;
+}
+
 .search-box-container {
   width: 100%;
   display: flex;

@@ -55,38 +55,52 @@ async function searchArt() {
 }
 
 $(document).ready(function () {
-  loadLatest();
-  $('.grid').on('click', '.image-container', function () {
-    var heading = $(this).find('img').attr('alt');
-    var imageLink = $(this).find('img').attr('src');
-    var description = $(this).find('p').text();
+  const username = localStorage.getItem('loggedInUser');
+  if (!username) {
+    window.location.href = 'login.html';
+  } else {
+    $('.display-name').text(username);
+    loadLatest();
+    $('.grid').on('click', '.image-container', function () {
+      var heading = $(this).find('img').attr('alt');
+      var imageLink = $(this).find('img').attr('src');
+      var description = $(this).find('p').text();
 
-    $('#image-heading').text(heading);
-    $('#image-details').text(description);
-    $('.side-panel').find('img').attr('src', imageLink);
+      $('#image-heading').text(heading);
+      $('#image-details').text(description);
+      $('.side-panel').find('img').attr('src', imageLink);
 
-    const artDetail = imagedata.find(art => art.imageURL === imageLink);
-    let htmlContent = `
-      <ul>
-        <li><b>Artist:</b> ${artDetail?.author}</li>
-        <li><b>Medium:</b> ${artDetail?.medium}</li>
-        <li><b>Year:</b> ${artDetail?.year}</li>
-        <li><b>Price$:</b> ${artDetail?.price}</li>
-        <li><b>Phone:</b> ${artDetail?.phone}</li>
-      </ul>
-    `;
+      const artDetail = imagedata.find(art => art.imageURL === imageLink);
+      let htmlContent = `
+      <div class="artist-flex">
+      <button>Buy Now</button>
+        <ul>
+          <li><b>Artist:</b> ${artDetail?.author}</li>
+          <li><b>Medium:</b> ${artDetail?.medium}</li>
+          <li><b>Year:</b> ${artDetail?.year}</li>
+          <li><b>Price$:</b> ${artDetail?.price}</li>
+          <li><b>Phone:</b> ${artDetail?.phone}</li>
+        </ul>
+      </div>
+      `;
 
-    $('.side-panel').find('#artist').html(htmlContent);
-    $('.side-panel').addClass('open');
-    $('.gallery').css('justify-content', 'flex-start');
-    $('.grid').css('animation', 'widthChange 0.5s forwards');
-    $('.image-container p').css('display', 'none');
-  });
+      $('.side-panel').find('#artist').html(htmlContent);
+      $('.side-panel').addClass('open');
+      $('.gallery').css('justify-content', 'flex-start');
+      $('.grid').css('animation', 'widthChange 0.5s forwards');
+      $('.image-container p').css('display', 'none');
+    });
 
-  $('.close-icon').click(function (e) {
-    if (e.target !== this) return;
-    $('.side-panel').removeClass('open');
-    $('.grid').css('animation', 'widthChangeBack 2s forwards');
-    $('.image-container p').css('display', 'block');
-  });
+    $('.close-icon').click(function (e) {
+      if (e.target !== this) return;
+      $('.side-panel').removeClass('open');
+      $('.grid').css('animation', 'widthChangeBack 2s forwards');
+      $('.image-container p').css('display', 'block');
+    });
+  }
+});
+
+$('.logout').click(() => {
+  localStorage.removeItem('loggedInUser');
+  window.location.href = 'login.html';
 });

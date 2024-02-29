@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const artRoutes = require('./routes/artRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,7 +20,7 @@ mongoose.connect(
 
 // Middleware to parse JSON and URL-encoded bodies
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // Middleware to enable CORS
 app.use((req, res, next) => {
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 
 // Routes
+app.use('/user', userRoutes);
 app.use('/art', artRoutes);
 
 // Default route to server static files.

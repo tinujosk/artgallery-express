@@ -78,6 +78,7 @@ footer {
 a {
   color: #faebd7;
   text-decoration: none;
+  cursor: pointer;
 }
 
 #footer-content {
@@ -117,4 +118,8 @@ a {
   width: 40%;
   height: 0.5px;
   background-color: #faebd7;
+}
+
+.display-name {
+  margin-right: 20px;
 }

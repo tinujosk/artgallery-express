@@ -109,17 +109,6 @@ async function loadAll() {
   }
 }
 
-// JWT Authentication system is in progress
-// async function checkAuthenticated() {
-//   const response = await fetch(`/art/protected`);
-//   const data = await response.json();
-
-//   if (response.status === 401) {
-//     window.location.href = 'login.html';
-//   }
-//   console.log('Authentication', data);
-// }
-
 $(document).ready(function () {
   if (localStorage.getItem('loggedInUser') !== 'admin') {
     window.location.href = 'login.html';

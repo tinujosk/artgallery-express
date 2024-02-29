@@ -1,11 +1,9 @@
-// const jwt = require('jsonwebtoken');
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const Art = require('../models/art');
+const Art = require('../models/Art');
 
 // Set up Multer for file uploads
 const storage = multer.diskStorage({
@@ -19,42 +17,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-// Authentication system is in progress
-// router.post('/login', (req, res) => {
-//   const { username, password } = req.body;
-
-//   // Example authentication logic (replace with your actual logic)
-//   if (username === 'admin' && password === 'password') {
-//     const token = jwt.sign({ username: 'admin' }, 'your_secret_key', {
-//       expiresIn: '1h',
-//     });
-//     res.json({ token });
-//   } else {
-//     res.status(401).json({ message: 'Invalid credentials' });
-//   }
-// });
-
-// Authentication middleware
-// function isAuthenticated(req, res, next) {
-//   const token = req.headers.authorization;
-//   if (!token) {
-//     // return res
-//     //   .status(401)
-//     //   .json({ message: 'Unauthorized: Authentication token missing' });
-//   }
-//   // if (token !== 'your_authentication_token') {
-//   //   return res
-//   //     .status(401)
-//   //     .json({ message: 'Unauthorized: Invalid authentication token' });
-//   // }
-//   next();
-// }
-
-// Protected route
-// router.get('/protected', isAuthenticated, (req, res) => {
-//   res.send('You have access to the protected resource');
-// });
 
 // Search Art
 router.get('/search', async (req, res) => {

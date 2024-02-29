@@ -1,27 +1,39 @@
-// User login details
-const users = [
-  { email: 'admin@artgallery.com', username: 'admin', password: 'admin123' },
-];
-
 // Validate login function
-const validateLogin = event => {
+const validateLogin = async event => {
   event.preventDefault();
-  const email = $('#username').val();
+  const username = $('#username').val();
   const password = $('#password').val();
-  const errorMessageElement = $('#errorMessage');
+  const errorMessageElement = $('.error-message');
+  const formData = { username, password };
 
   // Clear previous error message
   errorMessageElement.text('');
 
-  const user = users.find(
-    user => user.username === email || user.email === email
-  );
-
-  // If password is authenticated, stores the user details in the localStorage.
-  if (user && user.password === password) {
-    localStorage.setItem('loggedInUser', email);
-    window.location.assign('admin.html');
+  if (username === '' || password === '') {
+    errorMessageElement.text('Please enter username and password.');
   } else {
-    errorMessageElement.text('Invalid username or password. Please try again.');
+    const result = await fetch('/user/login', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const user = await result.json();
+    console.log('checl usr', user);
+
+    // If password is authenticated, stores the user details in the localStorage.
+    if (user?.username) {
+      if (user.role === 'admin') {
+        window.location.assign('admin.html');
+      } else {
+        window.location.assign('index.html');
+      }
+      localStorage.setItem('loggedInUser', user?.username);
+    } else {
+      errorMessageElement.text(
+        'Invalid username or password. Please try again.'
+      );
+    }
   }
 };
