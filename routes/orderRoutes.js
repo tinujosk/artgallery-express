@@ -22,9 +22,18 @@ router.post('/add', async (req, res) => {
 router.get('/all/:id', async (req, res) => {
   try {
     const user = req.params.id;
-    console.log('checking udpdate', user);
     const allOrders = await Order.find({ user });
-    console.log('checking allOrders', allOrders);
+    // const latestArt = await Art.find().sort({ createdAt: -1 }).limit(4);
+    res.json(allOrders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get('/all', async (req, res) => {
+  try {
+    const user = req.params.id;
+    const allOrders = await Order.find();
     // const latestArt = await Art.find().sort({ createdAt: -1 }).limit(4);
     res.json(allOrders);
   } catch (error) {

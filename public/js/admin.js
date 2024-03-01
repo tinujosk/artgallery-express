@@ -113,11 +113,45 @@ async function loadAll() {
   }
 }
 
+async function loadAllOrders() {
+  const response = await fetch(`/order/all`);
+  const orders = await response.json();
+
+  console.log('check orders', orders);
+
+  const table = $('#orderTable');
+  const tableBody = $('#orderTableBody')[0];
+  if (tableBody) {
+    while (tableBody.firstChild) {
+      tableBody.removeChild(tableBody.firstChild);
+    }
+    if (orders.length === 0) {
+      table.innerHTML =
+        'No data available as of now. Please add data using the below form';
+    } else {
+      orders.forEach(order => {
+        const newRow = tableBody.insertRow(0);
+        newRow.insertCell(0).innerHTML = order.status;
+        newRow.insertCell(1).innerHTML = order.product;
+        newRow.insertCell(2).innerHTML = order.quantity;
+        newRow.insertCell(3).innerHTML = new Date(
+          order.createdAt
+        ).toDateString();
+        newRow.insertCell(4).innerHTML = new Date(
+          order.updatedAt
+        ).toDateString();
+      });
+    }
+  }
+}
+
 $(document).ready(function () {
   if (!localStorage.getItem('loggedInUser')) {
     window.location.href = 'login.html';
   } else {
+    $('#tabs').tabs();
     loadAll();
+    loadAllOrders();
   }
 });
 
