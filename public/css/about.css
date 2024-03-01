@@ -13,3 +13,34 @@ body {
 #tabs p {
   line-height: 1.6;
 }
+
+table {
+  width: 70%;
+  border-collapse: collapse;
+  background-color: #dcdcdc;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+.order-table {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}

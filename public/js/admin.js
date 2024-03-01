@@ -3,6 +3,7 @@ const author = document.getElementById('author');
 const year = document.getElementById('year');
 const medium = document.getElementById('medium');
 const price = document.getElementById('price');
+const quantity = document.getElementById('quantity');
 const phone = document.getElementById('phone');
 const description = document.getElementById('description');
 const imageFile = document.getElementById('image');
@@ -16,6 +17,7 @@ author.addEventListener('input', checkFields);
 year.addEventListener('input', checkFields);
 medium.addEventListener('input', checkFields);
 price.addEventListener('input', checkFields);
+quantity.addEventListener('input', checkFields);
 phone.addEventListener('input', checkFields);
 description.addEventListener('input', checkFields);
 imageFile.addEventListener('change', checkFields);
@@ -28,6 +30,7 @@ function checkFields() {
     year.value.trim() !== '' &&
     medium.value.trim() !== '' &&
     price.value.trim() !== '' &&
+    quantity.value.trim() !== '' &&
     phone.value.trim() !== '' &&
     description.value.trim() &&
     imageFile.files.length > 0
@@ -93,9 +96,10 @@ async function loadAll() {
         newRow.insertCell(2).innerHTML = art.year;
         newRow.insertCell(3).innerHTML = art.medium;
         newRow.insertCell(4).innerHTML = art.price;
-        newRow.insertCell(5).innerHTML = art.phone;
-        newRow.insertCell(6).innerHTML = art.description;
-        newRow.insertCell(7).innerHTML = art.imageURL;
+        newRow.insertCell(5).innerHTML = art.quantity;
+        newRow.insertCell(6).innerHTML = art.phone;
+        newRow.insertCell(7).innerHTML = art.description;
+        newRow.insertCell(8).innerHTML = art.imageURL;
 
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML =
@@ -103,7 +107,7 @@ async function loadAll() {
         deleteButton.onclick = function () {
           deleteArt(art._id);
         };
-        newRow.insertCell(8).appendChild(deleteButton);
+        newRow.insertCell(9).appendChild(deleteButton);
       });
     }
   }
@@ -119,5 +123,6 @@ $(document).ready(function () {
 
 $('.logout').click(() => {
   localStorage.removeItem('loggedInUser');
+  localStorage.removeItem('loggedInUserId');
   window.location.href = 'login.html';
 });

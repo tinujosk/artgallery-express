@@ -5,8 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Art Gallery</title>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
     <link rel="stylesheet" href="./css/common.css" />
-    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/about.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -49,50 +53,19 @@
       </div>
     </header>
     <main>
-      <div class="search-box-container">
-        <div class="search-box">
-          <input
-            id="keyword"
-            type="text"
-            class="search-input"
-            placeholder="Search for title (No input will give all arts)"
-          />
-          <button class="search-button" onclick="searchArt()">Search</button>
-        </div>
-      </div>
-      <div
-        id="loader"
-        class="preloader-wrapper big active"
-        style="margin: auto; margin-top: 50px; display: none"
-      >
-        <div class="spinner-layer spinner-blue-only">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div>
-          <div class="gap-patch">
-            <div class="circle"></div>
-          </div>
-          <div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-      </div>
-      <p class="caption"></p>
-      <div class="gallery">
-        <div class="grid"></div>
-        <div class="side-panel">
-          <div class="close-icon">&times;</div>
-          <h2 id="image-heading">Click an image to see heading.</h2>
-          <p id="image-details">Click an image to see details.</p>
-          <div class="image-scroll">
-            <img src="" alt="Artist details" />
-          </div>
-          <p id="artist"></p>
-        </div>
-      </div>
-      <div class="not-found">
-        <i class="fa-regular fa-face-sad-tear"></i>
-        <p>Art Not Found</p>
+      <div class="order-table">
+        <table id="order-table">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Order date</th>
+              <th>Updated date</th>
+            </tr>
+          </thead>
+          <tbody id="order-table-body"></tbody>
+        </table>
       </div>
     </main>
     <footer>
@@ -141,6 +114,7 @@
       </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="./js/order.js"></script>
   </body>
 </html>

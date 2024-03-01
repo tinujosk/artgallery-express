@@ -21,6 +21,8 @@ const register = event => {
     errorMessageElement.text('Please enter all fields.');
   } else if (!emailPattern.test(email)) {
     errorMessageElement.text('Please enter the email in correct format');
+  } else if (password.length < 8) {
+    errorMessageElement.text('Password must be atleast 8 characters');
   } else if (confirmPassword !== password) {
     errorMessageElement.text("Passwords doesn't match.");
   } else {
@@ -56,11 +58,9 @@ async function addUser() {
         'Content-Type': 'application/json',
       },
     });
-
     const message = await result.json();
     errorMessageElement.text(message?.message);
-    form.reset();
   } catch (error) {
-    alert('Error adding user. Please try again.');
+    alert('Error adding user. Please try again.', error);
   }
 }

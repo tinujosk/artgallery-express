@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const artRoutes = require('./routes/artRoutes');
 const userRoutes = require('./routes/userRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -44,6 +45,7 @@ app.use('/uploads', express.static('uploads'));
 // Routes
 app.use('/user', userRoutes);
 app.use('/art', artRoutes);
+app.use('/order', orderRoutes);
 
 // Default route to server static files.
 app.get('/', (req, res) => {

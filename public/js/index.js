@@ -1,4 +1,5 @@
 let imagedata = [];
+let artDetail = null;
 
 const displayImages = (data, callingFn) => {
   $('.grid').html('');
@@ -54,6 +55,44 @@ async function searchArt() {
   displayImages(imagedata, 'searchart');
 }
 
+async function buyArt() {
+  let quantity = null;
+  const user = localStorage.getItem('loggedInUserId');
+  do {
+    quantity = prompt(
+      `Total available stock: ${artDetail?.quantity}\n How many pieces do you want?`,
+      ''
+    );
+    if (quantity === null) {
+      break;
+    }
+    quantity = parseInt(quantity);
+    if (quantity !== null && isNaN(quantity)) {
+      alert('Please enter a valid number.');
+      quantity = null;
+    } else if (quantity !== null && quantity > artDetail?.quantity) {
+      alert(
+        'We do not have that many stock!\nPlease enter a number which is in the stock'
+      );
+      quantity = null;
+    } else if (quantity !== null && quantity === 0) {
+      alert('Please enter atleast 1');
+      quantity = null;
+    }
+  } while (quantity === null);
+
+  if (quantity) {
+    const result = await fetch('/order/add', {
+      method: 'POST',
+      body: JSON.stringify({ user, product: artDetail?._id, quantity }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    window.location.href = 'orders.html';
+  }
+}
+
 $(document).ready(function () {
   const username = localStorage.getItem('loggedInUser');
   if (!username) {
@@ -70,10 +109,14 @@ $(document).ready(function () {
       $('#image-details').text(description);
       $('.side-panel').find('img').attr('src', imageLink);
 
-      const artDetail = imagedata.find(art => art.imageURL === imageLink);
+      artDetail = imagedata.find(art => art.imageURL === imageLink);
+      const dynamicButton =
+        artDetail?.quantity <= 0
+          ? '<span>Out of Stock</span>'
+          : '<button onclick="buyArt()">Buy Now</button>';
       let htmlContent = `
       <div class="artist-flex">
-      <button>Buy Now</button>
+      ${dynamicButton}
         <ul>
           <li><b>Artist:</b> ${artDetail?.author}</li>
           <li><b>Medium:</b> ${artDetail?.medium}</li>
@@ -102,5 +145,6 @@ $(document).ready(function () {
 
 $('.logout').click(() => {
   localStorage.removeItem('loggedInUser');
+  localStorage.removeItem('loggedInUserId');
   window.location.href = 'login.html';
 });

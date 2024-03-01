@@ -11,5 +11,6 @@ $(function () {
 
 $('.logout').click(() => {
   localStorage.removeItem('loggedInUser');
+  localStorage.removeItem('loggedInUserId');
   window.location.href = 'login.html';
 });

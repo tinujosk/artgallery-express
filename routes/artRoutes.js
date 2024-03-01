@@ -52,6 +52,7 @@ router.post('/add', upload.single('image'), async (req, res) => {
     medium: req.body.medium,
     price: req.body.price,
     phone: req.body.phone,
+    quantity: req.body.quantity,
     description: req.body.description,
     imageURL: `/uploads/${req.file?.filename}`,
   });

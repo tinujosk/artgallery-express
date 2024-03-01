@@ -30,6 +30,7 @@ const validateLogin = async event => {
         window.location.assign('index.html');
       }
       localStorage.setItem('loggedInUser', user?.username);
+      localStorage.setItem('loggedInUserId', user?._id);
     } else {
       errorMessageElement.text(
         'Invalid username or password. Please try again.'
