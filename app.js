@@ -11,8 +11,9 @@ const databaseName = 'art_gallery';
 const mongoPassword = 'mongoCluster0';
 
 // Connect to MongoDB on the cloud with the connections string, password and databaseName
+// Not best to hardcode credentials! will be removed later
 mongoose.connect(
-  `mongodb+srv://tinujosk:${mongoPassword}@cluster0.w5scobe.mongodb.net/${databaseName}`,
+  `mongodb+srv://tkadavanattu7158:mongoCluster0@cluster0.tc6hl1k.mongodb.net/${databaseName}`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
